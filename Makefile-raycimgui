@@ -1,0 +1,71 @@
+SRC_DIR = src
+BUILD_DIR = target
+LIB_NAME = raycimgui
+
+ifdef ARG_SRC_DIR
+	SRC_DIR = $(ARG_SRC_DIR)
+endif
+ifdef ARG_BUILD_DIR
+	BUILD_DIR = $(ARG_BUILD_DIR)
+endif
+ifdef ARG_LIB_NAME
+	LIB_NAME = $(ARG_LIB_NAME)
+endif
+
+# DEPENDENCIES
+VENDOR_RAYLIB = raylib-5.0
+VENDOR_CIMGUI = cimgui-1.92.1
+
+ifdef ARG_VENDOR_RAYLIB
+	VENDOR_RAYLIB = $(ARG_VENDOR_RAYLIB)
+endif
+
+ifdef ARG_VENDOR_CIMGUI
+	VENDOR_CIMGUI = $(ARG_VENDOR_CIMGUI)
+endif
+
+AR = ar
+ifdef ARG_AR
+	AR = $(ARG_AR)
+endif
+
+CC = gcc
+ifdef ARG_CC
+	CC = $(ARG_CC)
+endif
+
+CFLAGS = -std=c11
+CINCLUDE = \
+	-Ivendor/$(VENDOR_RAYLIB)/include \
+	-Ivendor/$(VENDOR_CIMGUI)/include \
+	-Isrc
+CLIB = 
+CLINK = 
+
+# Recursive find for .c files with directory structure preservation
+# rwildcard = $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2) $(filter $(subst *,%,$2),$d))
+# SRC = $(call rwildcard,$(SRC_DIR)/,*.c)
+# OBJ = $(SRC:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
+# DEP = $(OBJ:.o=.d)
+
+SRC = $(SRC_DIR)/$(LIB_NAME).c
+OBJ = $(BUILD_DIR)/$(LIB_NAME).o
+LIBRARY = $(BUILD_DIR)/lib$(LIB_NAME).a
+
+.PHONY: all clean
+
+all: $(LIBRARY)
+
+$(LIBRARY): $(OBJ)
+	@echo Archiving $@
+	@$(AR) -rcs $@ $^
+
+# Compilation with directory creation and dependency generation
+$(OBJ): $(SRC)
+	@echo Compiling $<
+	@mkdir "$(@D)" 2>nul || exit 0
+	@$(CC) $(CFLAGS) $(CINCLUDE) $(CLIB) $(CLINK) -c $< -o $@
+
+clean:
+	@echo Cleaning build artifacts
+	@rmdir /s /q $(BUILD_DIR) 2>nul || exit 0
