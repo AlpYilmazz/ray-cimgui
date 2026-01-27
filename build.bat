@@ -40,7 +40,7 @@ SET LIB_DIR=%LIB_NAME%
 
 @REM DEPENDENCIES
 SET VENDOR_RAYLIB=raylib-5.0
-SET VENDOR_CIMGUI=cimgui-1.92.1
+SET VENDOR_CIMGUI=cimgui-1.92.1-docking
 
 if defined IS_CLEAN (
     @rmdir /s /q %LIB_DIR%      >nul 2>&1

@@ -4,7 +4,7 @@
 [cimgui][cimgui-github] which is a C translation of
 the excellent C++ library [imgui][imgui-github].
 
-version: 1.92.1
+version: 1.92.1-docking
 
 ## CREDITS
 
@@ -28,8 +28,8 @@ git submodule update --init --recursive
 ## DEPENDENCIES
 
 - [raylib][raylib-github]: 5.0
-- [cimgui][cimgui-github]: 1.92.1
-    - [imgui][imgui-github]: 1.92.1
+- [cimgui][cimgui-github]: 1.92.1dock
+    - [imgui][imgui-github]: 1.92.1-docking
 
 `raycimgui` versions reflect the
 cimgui version

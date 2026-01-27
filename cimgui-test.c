@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
 	// if the linked ImGui has docking, enable it.
 	// this will only be true if you use the docking branch of ImGui.
 #ifdef IMGUI_HAS_DOCK
-	igGetIO().ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+	igGetIO_Nil()->ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 #endif
 
 	// Main game loop
@@ -59,7 +59,7 @@ int main(int argc, char* argv[])
 
 		// if you want windows to dock to the viewport, call this.
 #ifdef IMGUI_HAS_DOCK
-		igDockSpaceOverViewport(0,  NULL, ImGuiDockNodeFlags_PassthruCentralNode); // set ImGuiDockNodeFlags_PassthruCentralNode so that we can see the raylib contents behind the dockspace
+		igDockSpaceOverViewport(0,  NULL, ImGuiDockNodeFlags_PassthruCentralNode, NULL); // set ImGuiDockNodeFlags_PassthruCentralNode so that we can see the raylib contents behind the dockspace
 #endif
 
 		// show a simple menu bar
